@@ -23,9 +23,6 @@ export class RegisterController {
       return Messages.PasswordIsShort;
     }
     const hash = await bcrypt.hash(user.password, 10);
-    // const salt = await bcrypt.genSalt();
-    // console.log('salt', salt);
-
     const savedUser = await this.userService.createUser({ ...user, password: hash });
     return { ...savedUser, password: null };
   }
