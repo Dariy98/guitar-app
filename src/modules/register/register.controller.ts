@@ -3,12 +3,14 @@ import * as bcrypt from "bcrypt";
 import { User } from "../entities/user.entity";
 import { UsersService } from "../users/users.service";
 import { Messages } from "../interfaces/messages";
+import { JwtService } from "@nestjs/jwt";
 
 @Controller("register")
 export class RegisterController {
 
   constructor(
-    private userService: UsersService
+    private userService: UsersService,
+    private jwtService: JwtService,
   ) {
   }
 
@@ -24,7 +26,11 @@ export class RegisterController {
     }
     const hash = await bcrypt.hash(user.password, 10);
     const savedUser = await this.userService.createUser({ ...user, password: hash });
-    return { ...savedUser, password: null };
+    const userWithoutPass = { ...savedUser, password: null };
+    return {
+      access_token: this.jwtService.sign(userWithoutPass),
+      user: userWithoutPass
+    };
   }
 }
 
