@@ -16,8 +16,8 @@ export class LoginController {
   }
 
   @Get(":token")
-  async getOne(@Param("token") token: string) {
-    console.log("getOne token: ", token);
+  async checkToken(@Param("token") token: string) {
+    console.log("checkToken token: ", token);
     try {
       const payload = await this.jwtService.verify(token, { secret: jwtConstants.secret });
       return {
