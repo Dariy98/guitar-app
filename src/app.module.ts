@@ -6,13 +6,19 @@ import { UsersModule } from "./modules/users/users.module";
 import { Connection } from "typeorm";
 import { RegisterModule } from "./modules/register/register.module";
 import { LoginModule } from "./modules/login/login.module";
+import { MulterModule } from "@nestjs/platform-express";
+import { FilesModule } from "./modules/files/files.module";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     UsersModule,
     RegisterModule,
-    LoginModule
+    LoginModule,
+    FilesModule,
+    MulterModule.register({
+      dest: "./upload"
+    })
   ],
   controllers: [AppController],
   providers: [AppService]
