@@ -1,4 +1,16 @@
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Notes } from "../entities/notes.entity";
+
 export class FilesService {
-  constructor() {
+  constructor(
+    @InjectRepository(Notes)
+    private notesRepository: Repository<Notes>
+  ) {
   }
+
+  async saveNotesData(notes: Notes): Promise<Notes> {
+    return this.notesRepository.save(notes);
+  }
+
 }
