@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Level } from "../constants/constants";
 
 @Entity()
 export class Notes {
@@ -8,6 +9,18 @@ export class Notes {
   @Column()
   title: string;
 
-  @Column("blob", { nullable: true })
-  images: Blob[];
+  @Column()
+  description: string;
+
+  @Column()
+  genre: string;
+
+  @Column()
+  class: string;
+
+  @Column()
+  level: Level;
+
+  @Column()
+  files: string;
 }
